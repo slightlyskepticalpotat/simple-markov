@@ -5,7 +5,7 @@ A simple and fast [Markov Chain](https://en.wikipedia.org/wiki/Markov_chain)-bas
 int main() {
     ios_base::sync_with_stdio(false); // makes the i/o faster
     cin.tie(NULL); // also makes the i/o faster
-    Markov chain("shakespeare.txt", 3); // name of the text file, previous states used
+    Markov chain("shakespeare.txt", 2); // name of the text file, previous states used
     chain.generateText(128, 2); // number of words to generate, temperature from 0-100
     return 0;
 }

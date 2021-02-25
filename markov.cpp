@@ -11,7 +11,7 @@ class Markov {
             ifstream file(input_text);
             deque<string> current;
             string buff;
-            state_length = n;
+            state_length = n + 1; // n previous states are used
             srand(time(0));
             for (int i = 0; i < state_length; i++) { // placeholder of newlines
                 addWord(current, "\n");
@@ -23,7 +23,7 @@ class Markov {
             addWord(current, "\n"); // mark the end of the text
             file.close();
         }
-        
+
         void generateText(int to_generate, int temperature) {
             deque<string> current;
             string buff;
