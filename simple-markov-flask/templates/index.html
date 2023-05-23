@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Ubuntu&family=Open+Sans&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu&family=Open+Sans&display=swap" media="print" onload="this.media='all'" />
+    <link rel="icon" href="https://picsum.photos/256/256?random=1" type="image/x-icon">
+    <title>AI Text Generator</title>
+    <!-- Mobile-friendly navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Anthony Chen</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" href="/resume/">Résumé</a>
+                    <a class="nav-link" href="/projects/">Projects</a>
+                    <a class="nav-link" href="/blog/">Blog</a>
+                    <a class="nav-link active" href="/apps/">Apps</a>
+                </div>
+                <div class="navbar-nav ms-auto">
+                    <input class="search-box" type="text" placeholder="Search...">
+                    <i class="fa fa-search fa-2x px-2 icon"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+</head>
+
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>AI Text Generator<span class="blinking">_</span></h1>
+        </div>
+        <hr>
+        {% with msg = get_flashed_messages(with_categories=True) %}
+            {% if msg %}
+                {% for category, message in msg %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <p>My <a href="https://github.com/slightlyskepticalpotat/simple-markov/">AI Text Generator</a> program is hosted here. It uses artificial intelligence (<a href="https://en.wikipedia.org/wiki/Markov_chain/">markov chains</a>) to generate text based on user-provided training data. The generation should take no more than a second or two. Although the generator takes punctuation into account, unfortunately you will have to add your own line breaks to taste.</p>
+        <div class="card">
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>Number of words</label>
+                        <input type="number" class="form-control" name="word-count" placeholder="Recommended 1024, 1-262144" required autofocus>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label>States used</label>
+                        <input type="number" class="form-control" name="states-used" placeholder="Recommended 2, 1-16" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label>Temperature</label>
+                        <input type="text" class="form-control" name="temperature" placeholder="Recommended 4, 0-100" required>
+                        <small>The higher this number is, the more the generated text will deviate from the training data</small>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label>Training Data</label>
+                        <input type="file" class="form-control-file" name="training-data" accept="text/*" required>
+                        <br>
+                        <small><a href="https://www.tensorflow.org/datasets/catalog/tiny_shakespeare">Tiny Shakespeare</a> and other Tensorflow datasets are good places to start</small>
+                    </div>
+                    <br>
+                    <script src="https://hcaptcha.com/1/api.js" async defer></script>
+                    <div class="h-captcha" data-sitekey="{{ sitekey }}"></div>
+                    <br>
+                    <button type="submit" class="btn btn-outline-primary">Generate</button>
+                </form>
+            </div>
+        </div>
+        <hr>
+    </div>
+</body>
+<footer class="footer">
+    <div class="container text-center">
+        <ul class="list-inline">
+            <li class="list-inline-item">
+                <a href="/">
+                    <i class="fa fa-globe fa-2x px-2 icon"></i>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a href="mailto:chenanthony365@gmail.com">
+                    <i class="fa fa-envelope fa-2x px-2 icon"></i>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a href="https://github.com/slightlyskepticalpotat">
+                    <i class="fab fa-github fa-2x px-2 icon"></i>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a href="/pgp/">
+                    <i class="fas fa-key fa-2x px-2 icon"></i>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a href="https://www.linkedin.com/in/anthony-chen-512719207/">
+                    <i class="fab fa-linkedin fa-2x px-2 icon"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="text-center">
+        <p><small>Copyright Anthony Chen, 2019–2021. This website is licenced under a <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0 Licence</a>.</small></p>
+    </div>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.min.js" integrity="sha512-mp3VeMpuFKbgxm/XMUU4QQUcJX4AZfV5esgX72JQr7H7zWusV6lLP1S78wZnX2z9dwvywil1VHkHZAqfGOW7Nw==" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 48,
+  backgroundColor: 'slateblue',
+  textColor: '#fff'
+})</script>
+<script src="/assets/js/index.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+
+</html>
