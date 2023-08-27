@@ -21,6 +21,7 @@ def markov():
         return render_template("index.html", sitekey=app.config['HCAPTCHA_SITEKEY'])
 
     try:
+        # numerical filtering ensures protection against rm -rf and friends
         word_count = int(request.form.get("word-count"))
         states_used = int(request.form.get("states-used"))
         temperature = int(request.form.get("temperature"))
